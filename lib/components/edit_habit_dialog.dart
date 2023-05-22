@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
-class EditDialog extends StatelessWidget {
+class EditDialog extends StatefulWidget {
   const EditDialog({
     super.key,
     required this.controller,
@@ -15,15 +16,24 @@ class EditDialog extends StatelessWidget {
   final VoidCallback onCancel;
 
   @override
+  State<EditDialog> createState() => _EditDialogState();
+}
+
+class _EditDialogState extends State<EditDialog> {
+  String? errorText;
+  bool buttonEnabled = false;
+  @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text(
+      title: Text(
         'Edit Habit',
-        style: TextStyle(color: Color(0xFF2c3140)),
+        style: GoogleFonts.poppins(
+          color: const Color(0xffe8eeff),
+        ),
       ),
-      backgroundColor: const Color(0xffaabdf8),
+      backgroundColor: const Color(0xff2c3140),
       content: Container(
-        height: 100,
+        height: 120,
         width: 300,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
@@ -32,31 +42,58 @@ class EditDialog extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             TextField(
-              controller: controller,
+              autofocus: true,
+              controller: widget.controller,
               textInputAction: TextInputAction.done,
+              onChanged: (value) {
+                if (value.length > 30) {
+                  setState(() {
+                    errorText = 'Max of 30 characters!';
+                    buttonEnabled = false;
+                  });
+                } else {
+                  setState(() {
+                    errorText = null;
+                    buttonEnabled = true;
+                  });
+                }
+              },
               decoration: InputDecoration(
                 icon: const Icon(Icons.edit),
-                hintText: hintText,
-                border: InputBorder.none,
+                iconColor: const Color(0xffe8eeff),
+                hintText: widget.hintText,
+                hintStyle: const TextStyle(
+                  color: Color(0xffe8eeff),
+                ),
+                errorText: errorText,
               ),
-              autofocus: true,
+              style: GoogleFonts.shadowsIntoLightTwo(
+                fontSize: 16,
+                color: const Color(0xffe8eeff),
+              ),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 TextButton(
-                  onPressed: onSave,
+                  onPressed: widget.onSave,
                   child: const Text(
                     'Save',
+                    style: TextStyle(
+                      fontSize: 16,
+                    ),
                   ),
                 ),
                 const SizedBox(
                   width: 10,
                 ),
                 TextButton(
-                  onPressed: onCancel,
+                  onPressed: widget.onCancel,
                   child: const Text(
                     'Cancel',
+                    style: TextStyle(
+                      fontSize: 16,
+                    ),
                   ),
                 ),
               ],

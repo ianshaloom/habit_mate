@@ -25,7 +25,7 @@ class HabitTile extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: Slidable(
         endActionPane: ActionPane(
-          motion: StretchMotion(),
+          motion: const StretchMotion(),
           children: [
             SlidableAction(
               onPressed: edit,
@@ -50,6 +50,7 @@ class HabitTile extends StatelessWidget {
               Checkbox(
                 value: habitCompleted,
                 onChanged: onChanged,
+                shape: const CircleBorder(),
               ),
               Text(
                 habitName,
@@ -57,7 +58,7 @@ class HabitTile extends StatelessWidget {
                   decoration: habitCompleted
                       ? TextDecoration.lineThrough
                       : TextDecoration.none,
-                  fontSize: 18,
+                  fontSize: 17,
                   fontWeight: FontWeight.w600,
                 ),
               )
