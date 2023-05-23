@@ -59,7 +59,8 @@ class HabitTile extends StatelessWidget {
                       ? TextDecoration.lineThrough
                       : TextDecoration.none,
                   fontSize: 17,
-                  fontWeight: FontWeight.w600,
+                  fontWeight:
+                      habitCompleted ? FontWeight.w600 : FontWeight.w500,
                 ),
               )
             ],
