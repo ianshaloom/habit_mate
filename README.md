@@ -1,16 +1,12 @@
-# habit_tracker
+# Habit Tracker
 
 A new Flutter project.
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
+![-2147483648_-211068](https://github.com/ianshaloom/habit_tracker/assets/82651930/c371fb80-d6bf-4264-9fe2-a87f5d1f579c)
 
-A few resources to get you started if this is your first Flutter project:
+![-2147483648_-211066](https://github.com/ianshaloom/habit_tracker/assets/82651930/2fe62cba-99cf-4a12-8322-e46d7da1bf86)
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+![-2147483648_-211064](https://github.com/ianshaloom/habit_tracker/assets/82651930/c8ad3e9b-1d8e-48f1-8120-a4a877cc87fb)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![-2147483648_-211062](https://github.com/ianshaloom/habit_tracker/assets/82651930/b8611b2b-d6e5-4524-8c1d-2ac48ef7f4e2)
