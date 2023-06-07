@@ -21,8 +21,8 @@ class MonthAnalysis extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(15),
+    return SingleChildScrollView(
+      padding: const EdgeInsets.only(left: 15, right: 15),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
@@ -48,18 +48,15 @@ class MonthAnalysis extends StatelessWidget {
               10: Color.fromRGBO(44, 49, 64, 1),
             },
           ),
-          const SizedBox(
-            height: 20,
-          ),
           Container(
-            padding: const EdgeInsets.all(20),
+            padding: const EdgeInsets.all(10),
             width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
               color: const Color.fromRGBO(44, 49, 64, 1),
               borderRadius: BorderRadius.circular(20),
               boxShadow: const [
                 BoxShadow(
-                    blurRadius: 3.0,
+                    blurRadius: 1.0,
                     color: Color(0x33000000),
                     offset: Offset(5, 5))
               ],
@@ -70,10 +67,10 @@ class MonthAnalysis extends StatelessWidget {
                 Text(
                   'Quick Tips 💡',
                   style: GoogleFonts.shadowsIntoLightTwo(
-                    fontSize: 16,
-                    color: const Color(0xffe8eeff),
-                    fontWeight: FontWeight.w600,
-                  ),
+                      fontSize: 16,
+                      color: const Color(0xffe8eeff),
+                      fontWeight: FontWeight.w600,
+                    ),
                 ),
                 Text(
                   tips,

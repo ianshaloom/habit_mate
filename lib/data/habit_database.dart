@@ -12,8 +12,8 @@ class HabitDb {
   void createDefaultDb() {
     // create a list of habits
     habits = [
-      ['Read at least two pages', false],
-      ['Take a walk', false],
+      ['Keep hydrated', false],
+      ['Be grateful for everything', false],
       ['Learn something new', false]
     ];
 

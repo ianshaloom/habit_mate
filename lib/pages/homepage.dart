@@ -145,7 +145,7 @@ class _HomePageState extends State<HomePage> {
               child: Stack(
                 children: [
                   Text(
-                    'Your',
+                    "Your",
                     style: GoogleFonts.marcellus(
                       fontSize: 80,
                       color: const Color(0xff2c3140),
@@ -153,13 +153,13 @@ class _HomePageState extends State<HomePage> {
                   ),
                   Positioned(
                     bottom: 0,
-                    left: 16,
+                    left: 2,
                     top: 85,
                     child: Text(
                       'Habit Tracker',
                       style: GoogleFonts.marcellus(
-                        fontSize: 60,
-                        fontWeight: FontWeight.bold,
+                        fontSize: 50,
+                        fontWeight: FontWeight.w300,
                         color: const Color(0xff2c3140),
                       ),
                     ),
