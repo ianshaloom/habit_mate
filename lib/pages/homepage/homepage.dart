@@ -1,13 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:habit_tracker/pages/homepage/widgets/floating_buttons.dart';
+import 'package:habit_tracker/pages/homepage/widgets/heatmap_widget.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../components/habit_tile.dart';
 import '../../data/habit_database.dart';
 import '../bottomsheetpage/add_bottomsheet_page.dart';
 import '../bottomsheetpage/edit_bottomsheet_page.dart';
+import 'widgets/floating_buttons.dart';
+import 'widgets/habits_widget.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -29,26 +29,25 @@ class _MainPageState extends State<MainPage> {
   ];
   String pageName = 'Habit List';
   late int widgetIndex = 0;
-  //final _pageController = PageController();
+  final _pageController = PageController();
 
- 
- // Set page name
+  // Set page name
   void setPageName(int value) {
     setState(() {
       pageName = pageNames[value];
     });
   }
-  
-   // checkBox Tapped
-  void checkBaxTapped(bool? value, index) {
+
+  // checkBox Tapped
+  void _checkBoxTapped(bool? value, index) {
     setState(() {
       a.habits[index][1] = value;
     });
     a.updateCurrentDb();
   }
-  
+
   // delete habit
-  void deleteHabit(int index) {
+  void _deleteHabit(int index) {
     setState(() {
       a.habits.removeAt([index][0]);
     });
@@ -153,83 +152,18 @@ class _MainPageState extends State<MainPage> {
               ),
               child: Stack(
                 children: [
-                  Column(
+                  PageView(
+                    controller: _pageController,
                     children: [
-                      Container(
-                        padding:
-                            const EdgeInsets.only(right: 8, left: 8, top: 50),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            SvgPicture.asset(
-                              'assets/images/homegym.svg',
-                              width: (size.width - 16) *
-                                  0.5, // Adjust the width as needed
-                              height: 120,
-                              fit: BoxFit
-                                  .fitWidth, // Adjust the height as needed
-                            ),
-                            SvgPicture.asset(
-                              'assets/images/dogwalk.svg',
-                              width: (size.width - 16) *
-                                  0.5, // Adjust the width as needed
-                              height: 120,
-                              fit: BoxFit
-                                  .fitWidth, // Adjust the height as needed
-                            ),
-                          ],
-                        ),
+                      HabitsPage(
+                        checkBaxTapped: _checkBoxTapped,
+                        editHabitForm: _editHabitForm,
+                        deleteHabit: _deleteHabit,
                       ),
-                      a.habits.isEmpty
-                          ? Expanded(
-                              child: Center(
-                                child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          bottom: 20.0, top: 30),
-                                      child: Text(
-                                        'No habits added yet!',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyMedium,
-                                      ),
-                                    ),
-                                    SvgPicture.asset(
-                                      'assets/images/arrow.svg',
-                                      height: 180,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            )
-                          : Expanded(
-                              child: ListView.builder(
-                                padding: const EdgeInsets.only(top: 20),
-                                itemCount: a.habits.length,
-                                itemBuilder: (context, index) {
-                                  return Column(
-                                    children: [
-                                      HabitTile(
-                                        habitName: a.habits[index][0],
-                                        habitCompleted: a.habits[index][1],
-                                        onChanged: (value) =>
-                                            checkBaxTapped(value, index),
-                                        edit: (context) =>
-                                            _editHabitForm(context, index),
-                                        delete: (context) => deleteHabit(index),
-                                      ),
-                                      Divider(
-                                        color: Theme.of(context).primaryColor,
-                                        indent: 40,
-                                      )
-                                    ],
-                                  );
-                                },
-                              ),
-                            )
+                      HeatMapAnalysis(
+                        dataset: a.heatMapDataset,
+                        startDate: _mybox.get('START_DATE'),
+                      )
                     ],
                   ),
                   Positioned(
