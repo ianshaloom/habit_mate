@@ -4,12 +4,10 @@ import 'package:habit_tracker/pages/homepage/widgets/floating_buttons.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../components/add_habit_dialog.dart';
-import '../../components/edit_habit_dialog.dart';
 import '../../components/habit_tile.dart';
 import '../../data/habit_database.dart';
-import '../bottomsheetpage/bottomsheetpage.dart';
-import '../bottomsheetpage/editbottomsheet.dart';
+import '../bottomsheetpage/add_bottomsheet_page.dart';
+import '../bottomsheetpage/edit_bottomsheet_page.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -33,14 +31,22 @@ class _MainPageState extends State<MainPage> {
   late int widgetIndex = 0;
   //final _pageController = PageController();
 
-  // checkBox Tapped
+ 
+ // Set page name
+  void setPageName(int value) {
+    setState(() {
+      pageName = pageNames[value];
+    });
+  }
+  
+   // checkBox Tapped
   void checkBaxTapped(bool? value, index) {
     setState(() {
       a.habits[index][1] = value;
     });
     a.updateCurrentDb();
   }
-
+  
   // delete habit
   void deleteHabit(int index) {
     setState(() {
@@ -49,18 +55,11 @@ class _MainPageState extends State<MainPage> {
     a.updateCurrentDb();
   }
 
-  // Set page name
-  void setPageName(int value) {
-    setState(() {
-      pageName = pageNames[value];
-    });
-  }
-
   // draw add new habit bottom sheet
   void _addHabitForm(BuildContext ctx) {
     showModalBottomSheet(
       context: ctx,
-      builder: (bCtx) => BottomSheetContent(addHabit: _addHabit),
+      builder: (bCtx) => AddBottomSheetContent(addHabit: _addHabit),
     );
   }
 
@@ -93,12 +92,6 @@ class _MainPageState extends State<MainPage> {
     _controller.clear();
     Navigator.of(context).pop();
     a.updateCurrentDb();
-  }
-
-  // cancel adding
-  void onCancel() {
-    Navigator.of(context).pop();
-    _controller.clear();
   }
 
   @override

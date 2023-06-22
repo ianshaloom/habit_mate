@@ -4,18 +4,18 @@ import 'package:flutter/material.dart';
 import '../../data/habit_database.dart';
 import 'widgets/textinput.dart';
 
-class BottomSheetContent extends StatefulWidget {
+class AddBottomSheetContent extends StatefulWidget {
   final Function addHabit;
-  const BottomSheetContent({
+  const AddBottomSheetContent({
     super.key,
     required this.addHabit,
   });
 
   @override
-  State<BottomSheetContent> createState() => _BottomSheetContentState();
+  State<AddBottomSheetContent> createState() => _AddBottomSheetContentState();
 }
 
-class _BottomSheetContentState extends State<BottomSheetContent> {
+class _AddBottomSheetContentState extends State<AddBottomSheetContent> {
   HabitDb a = HabitDb();
 
   // Contollers
@@ -28,7 +28,7 @@ class _BottomSheetContentState extends State<BottomSheetContent> {
       return;
     }
 
-    widget.addHabit(habit:habit, complited:false);
+    widget.addHabit(habit: habit, complited: false);
 
     Navigator.of(context).pop();
   }
@@ -40,7 +40,7 @@ class _BottomSheetContentState extends State<BottomSheetContent> {
   }
 
   // Get Date Picker
-  DateTime _selectedDate = DateTime.now();
+  //DateTime _selectedDate = DateTime.now();
 
   @override
   Widget build(BuildContext context) {

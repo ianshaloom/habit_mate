@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-import 'pages/homepage/mainpage.dart';
+import 'pages/homepage/homepage.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
