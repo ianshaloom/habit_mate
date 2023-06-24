@@ -34,37 +34,36 @@ class _EditBottomSheetContentState extends State<EditBottomSheetContent> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Padding(
-            padding:
-                const EdgeInsets.only(top: 5, bottom: 15.0, left: 4, right: 4),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                IconButton(
-                  onPressed: onCancel,
-                  icon: const Icon(CupertinoIcons.xmark),
+      padding: EdgeInsets.only(
+        bottom: MediaQuery.of(context).viewInsets.bottom,
+      ),
+      child: SizedBox(
+        height: 80,
+        child: Padding(
+          padding:
+              const EdgeInsets.only(top: 5, bottom: 15.0, left: 4, right: 4),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              IconButton(
+                onPressed: onCancel,
+                icon: const Icon(CupertinoIcons.xmark),
+              ),
+              Flexible(
+                fit: FlexFit.tight,
+                child: UserInputField(
+                  controller: widget.controller,
+                  hintText: widget.hintText,
+                  onSubmitted: (_) => widget.editHabit(),
                 ),
-                Text(
-                  'Edit Habit',
-                  style: Theme.of(context).textTheme.bodyMedium,
-                ),
-                IconButton(
-                  onPressed: widget.editHabit,
-                  icon: const Icon(CupertinoIcons.check_mark),
-                ),
-              ],
-            ),
+              ),
+              IconButton(
+                onPressed: widget.editHabit,
+                icon: const Icon(CupertinoIcons.check_mark),
+              ),
+            ],
           ),
-          UserInputField(
-            controller: widget.controller,
-            hintText: widget.hintText,
-            onSubmitted: (_) => widget.editHabit(),
-          ),
-        ],
+        ),
       ),
     );
   }

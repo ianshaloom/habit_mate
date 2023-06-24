@@ -22,36 +22,40 @@ class HeatMapAnalysis extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textScaleFactor = MediaQuery.of(context).textScaleFactor;
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Expanded(
-          child: HeatMap(
-            startDate: createDateTimeObj(startDate),
-            endDate: DateTime.now().add(const Duration(days: 0)),
-            datasets: dataset,
-            colorMode: ColorMode.color,
-            showColorTip: false,
-            showText: true,
-            scrollable: true,
-            size: 30,
-            colorsets: const {
-              1: Color.fromRGBO(44, 49, 64, 0.1),
-              2: Color.fromRGBO(44, 49, 64, 0.2),
-              3: Color.fromRGBO(44, 49, 64, 0.3),
-              4: Color.fromRGBO(44, 49, 64, 0.4),
-              5: Color.fromRGBO(44, 49, 64, 0.5),
-              6: Color.fromRGBO(44, 49, 64, 0.6),
-              7: Color.fromRGBO(44, 49, 64, 0.7),
-              8: Color.fromRGBO(44, 49, 64, 0.8),
-              9: Color.fromRGBO(44, 49, 64, 0.9),
-              10: Color.fromRGBO(44, 49, 64, 1),
-            },
+          child: Padding(
+            padding: const EdgeInsets.only(top: 30.0),
+            child: HeatMap(
+              startDate: createDateTimeObj(startDate),
+              endDate: DateTime.now().add(const Duration(days: 0)),
+              datasets: dataset,
+              colorMode: ColorMode.color,
+              showColorTip: false,
+              showText: true,
+              scrollable: true,
+              size: 25 / textScaleFactor,
+              colorsets: const {
+                1: Color.fromRGBO(44, 49, 64, 0.1),
+                2: Color.fromRGBO(44, 49, 64, 0.2),
+                3: Color.fromRGBO(44, 49, 64, 0.3),
+                4: Color.fromRGBO(44, 49, 64, 0.4),
+                5: Color.fromRGBO(44, 49, 64, 0.5),
+                6: Color.fromRGBO(44, 49, 64, 0.6),
+                7: Color.fromRGBO(44, 49, 64, 0.7),
+                8: Color.fromRGBO(44, 49, 64, 0.8),
+                9: Color.fromRGBO(44, 49, 64, 0.9),
+                10: Color.fromRGBO(44, 49, 64, 1),
+              },
+            ),
           ),
         ),
         Container(
-          margin: const EdgeInsets.only(left: 10, right: 10, bottom: 20),
-          padding: const EdgeInsets.all(5),
+          margin: const EdgeInsets.only(left: 10, right: 10, bottom: 10),
+          padding: const EdgeInsets.all(10),
           width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
             color: const Color.fromRGBO(44, 49, 64, 1),
@@ -78,7 +82,7 @@ class HeatMapAnalysis extends StatelessWidget {
                 tips,
                 textAlign: TextAlign.left,
                 style: GoogleFonts.shadowsIntoLightTwo(
-                  fontSize: 16,
+                  fontSize: 16 / textScaleFactor,
                   color: const Color(0xffe8eeff),
                 ),
               ),

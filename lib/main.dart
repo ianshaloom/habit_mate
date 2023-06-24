@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import 'pages/homepage/homepage.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitDown,
+    DeviceOrientation.portraitUp,
+  ]);
 
   // initialize hive
   await Hive.initFlutter();
@@ -15,15 +20,15 @@ void main() async {
   runApp(
     MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Habit Tracker',
+      title: 'HabitMate',
       home: const MainPage(),
       theme: ThemeData(
-        primaryColor: const Color(0xff353535),
+        primaryColor: const Color.fromRGBO(44, 49, 64, 1),
         fontFamily: "Montserrat",
 
         // Appbar Theme
         appBarTheme: const AppBarTheme(
-          color: Color(0xff353535),
+          color: Color.fromRGBO(44, 49, 64, 1),
           centerTitle: true,
           elevation: 0,
           titleTextStyle: TextStyle(
@@ -35,7 +40,7 @@ void main() async {
 
         // Floating Buttons Theme
         floatingActionButtonTheme: const FloatingActionButtonThemeData(
-          backgroundColor: Color(0xff353535),
+          backgroundColor: Color.fromRGBO(44, 49, 64, 1),
           shape: CircleBorder(),
         ),
 
@@ -47,8 +52,18 @@ void main() async {
 
         // Text Theme
         textTheme: const TextTheme(
-          bodyLarge: TextStyle(
+          headlineLarge: TextStyle(
             fontSize: 23,
+            color: Colors.white,
+            fontWeight: FontWeight.w500,
+          ),
+          headlineSmall: TextStyle(
+            fontSize: 15,
+            color: Colors.white,
+            fontWeight: FontWeight.w600,
+          ),
+          bodyLarge: TextStyle(
+            fontSize: 22,
             color: Colors.white,
             fontWeight: FontWeight.w300,
           ),
@@ -74,7 +89,7 @@ void main() async {
               top: Radius.circular(20.0),
             ),
             side: BorderSide(
-              color: Color(0xff353535),
+              color: Color.fromRGBO(44, 49, 64, 1),
             ),
           ),
         ),

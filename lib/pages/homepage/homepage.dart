@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:habit_tracker/pages/bottomsheetpage/widgets/clear_habits.dart';
 import 'package:habit_tracker/pages/homepage/widgets/heatmap_widget.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../../data/habit_database.dart';
 import '../bottomsheetpage/add_bottomsheet_page.dart';
@@ -23,18 +25,13 @@ class _MainPageState extends State<MainPage> {
 
   // Habit name Text Controller
   final _controller = TextEditingController();
-  List<String> pageNames = [
-    'Habit List',
-    'Your Habit Analysis',
-  ];
-  String pageName = 'Habit List';
-  late int widgetIndex = 0;
+  late int _pageIndex = 0;
   final _pageController = PageController();
 
-  // Set page name
-  void setPageName(int value) {
+  // set page new index onchanged
+  void _setPageIndex(int value) {
     setState(() {
-      pageName = pageNames[value];
+      _pageIndex = value;
     });
   }
 
@@ -52,6 +49,30 @@ class _MainPageState extends State<MainPage> {
       a.habits.removeAt([index][0]);
     });
     a.updateCurrentDb();
+  }
+
+  void _confirmClear(BuildContext ctx) {
+    showModalBottomSheet(
+      context: ctx,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(30.0),
+        ),
+        side: BorderSide(
+          color: Color.fromRGBO(44, 49, 64, 1),
+        ),
+      ),
+      builder: (bCtx) => DeleteBottomSheet(onPressed: _deleteAllHabits),
+    );
+  }
+
+  // delete all habit
+  void _deleteAllHabits() {
+    setState(() {
+      a.habits.clear();
+    });
+    a.updateCurrentDb();
+    Navigator.of(context).pop();
   }
 
   // draw add new habit bottom sheet
@@ -115,35 +136,60 @@ class _MainPageState extends State<MainPage> {
       toolbarHeight: 10,
     );
     return Scaffold(
-      backgroundColor: const Color(0xff353535),
+      backgroundColor: const Color.fromRGBO(44, 49, 64, 1),
       appBar: appbar,
       body: SingleChildScrollView(
         child: Column(
           children: [
             Container(
-              height:
-                  (size.height - appbar.preferredSize.height - pad.top) * 0.06,
-              padding: const EdgeInsets.only(left: 40, bottom: 15),
-              child: Row(
-                children: <Widget>[
-                  const Text(
-                    "Habits",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontFamily: 'Poppins',
-                        fontWeight: FontWeight.bold,
-                        fontSize: 24.0),
-                  ),
-                  Text(
-                    ' Section',
-                    style: Theme.of(context).textTheme.bodyLarge,
-                  )
-                ],
-              ),
-            ),
+                height: (size.height - appbar.preferredSize.height - pad.top) *
+                    0.08,
+                padding: const EdgeInsets.only(left: 40, bottom: 15, right: 20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    _pageIndex == 0
+                        ? Row(
+                            children: <Widget>[
+                              Text(
+                                "Your",
+                                style:
+                                    Theme.of(context).textTheme.headlineLarge,
+                              ),
+                              Text(
+                                ' Habits',
+                                style: Theme.of(context).textTheme.bodyLarge,
+                              )
+                            ],
+                          )
+                        : Row(
+                            children: <Widget>[
+                              Text(
+                                "Habits",
+                                style:
+                                    Theme.of(context).textTheme.headlineLarge,
+                              ),
+                              Text(
+                                ' HeatMap',
+                                style: Theme.of(context).textTheme.bodyLarge,
+                              )
+                            ],
+                          ),
+                    SmoothPageIndicator(
+                      controller: _pageController,
+                      count: 2,
+                      effect: const WormEffect(
+                        dotWidth: 20,
+                        activeDotColor: Color(0xff6C63FF),
+                        dotColor: Color.fromRGBO(250, 250, 250, 0.855),
+                        spacing: 20,
+                      ),
+                    ),
+                  ],
+                )),
             Container(
               height:
-                  (size.height - appbar.preferredSize.height - pad.top) * 0.94,
+                  (size.height - appbar.preferredSize.height - pad.top) * 0.92,
               decoration: const BoxDecoration(
                 color: Color(0xffffffff),
                 borderRadius: BorderRadius.only(
@@ -154,28 +200,37 @@ class _MainPageState extends State<MainPage> {
                 children: [
                   PageView(
                     controller: _pageController,
+                    onPageChanged: ((value) => _setPageIndex(value)),
                     children: [
                       HabitsPage(
                         checkBaxTapped: _checkBoxTapped,
                         editHabitForm: _editHabitForm,
                         deleteHabit: _deleteHabit,
                       ),
-                      HeatMapAnalysis(
-                        dataset: a.heatMapDataset,
-                        startDate: _mybox.get('START_DATE'),
+                      SizedBox(
+                        height: (size.height -
+                                appbar.preferredSize.height -
+                                pad.top) *
+                            0.92,
+                        child: HeatMapAnalysis(
+                          dataset: a.heatMapDataset,
+                          startDate: _mybox.get('START_DATE'),
+                        ),
                       )
                     ],
                   ),
-                  Positioned(
-                    left: 0,
-                    right: 20,
-                    bottom: 10,
-                    child: QuickShortcuts(
-                      onAdd: () => _addHabitForm(context),
-                      onClear: _confirmClear,
-                      pageIndex: 0,
-                    ),
-                  )
+                  _pageIndex == 0
+                      ? Positioned(
+                          left: 0,
+                          right: 20,
+                          bottom: 10,
+                          child: QuickShortcuts(
+                            onAdd: () => _addHabitForm(context),
+                            onClear: () => _confirmClear(context),
+                            pageIndex: 0,
+                          ),
+                        )
+                      : const Center()
                 ],
               ),
             ),
@@ -183,39 +238,5 @@ class _MainPageState extends State<MainPage> {
         ),
       ),
     );
-  }
-
-  Future _confirmClear() async {
-    switch (await showDialog(
-        context: context,
-        builder: (context) {
-          return CupertinoAlertDialog(
-            title: const Text('Your Habits Tracker'),
-            content: const Text('Are you sure you want to Clear Your Habits?'),
-            actions: [
-              CupertinoDialogAction(
-                onPressed: () {
-                  Navigator.pop(context, 'Yes');
-                },
-                child: const Text('Yes'),
-              ),
-              CupertinoDialogAction(
-                onPressed: () {
-                  Navigator.pop(context, 'No');
-                },
-                child: const Text('No'),
-              ),
-            ],
-          );
-        })) {
-      case 'Yes':
-        setState(() {
-          a.habits.clear();
-        });
-        a.updateCurrentDb();
-        break;
-      case 'No':
-        break;
-    }
   }
 }
