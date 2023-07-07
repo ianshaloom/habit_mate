@@ -1,11 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:habit_tracker/pages/bottomsheetpage/widgets/clear_habits.dart';
 import 'package:habit_tracker/pages/homepage/widgets/heatmap_widget.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-import '../../data/habit_database.dart';
+import '../../models/habit_database.dart';
 import '../bottomsheetpage/add_bottomsheet_page.dart';
 import '../bottomsheetpage/edit_bottomsheet_page.dart';
 import 'widgets/floating_buttons.dart';

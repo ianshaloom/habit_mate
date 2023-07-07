@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../data/habit_database.dart';
+import '../../models/habit_database.dart';
 import 'widgets/textinput.dart';
 
 class EditBottomSheetContent extends StatefulWidget {

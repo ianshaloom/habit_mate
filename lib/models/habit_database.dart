@@ -1,4 +1,4 @@
-import 'package:habit_tracker/datetime/date_time.dart';
+import 'package:habit_tracker/models/date_time.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 // reference our database

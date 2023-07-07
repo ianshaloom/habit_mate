@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_heatmap_calendar/flutter_heatmap_calendar.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../../datetime/date_time.dart';
+import '../../../models/date_time.dart';
 
 class HeatMapAnalysis extends StatelessWidget {
   final Map<DateTime, int>? dataset;

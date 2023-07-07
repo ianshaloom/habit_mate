@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../../components/habit_tile.dart';
-import '../../../data/habit_database.dart';
+import 'habit_tile.dart';
+import '../../../models/habit_database.dart';
 
 class HabitsPage extends StatelessWidget {
   final Function checkBaxTapped;
