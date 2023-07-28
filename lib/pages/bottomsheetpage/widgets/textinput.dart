@@ -25,7 +25,6 @@ class UserInputField extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.only(left: 10.0),
         child: TextField(
-          autofocus: true,
           controller: controller,
           keyboardType: TextInputType.text,
           textInputAction: TextInputAction.done,
@@ -34,8 +33,8 @@ class UserInputField extends StatelessWidget {
             hintText: hintText ?? 'Habit Name',
             hintStyle: const TextStyle(
               fontSize: 18,
-              color: Color.fromARGB(120, 44, 49, 64),
-              fontWeight: FontWeight.w200,
+              color: Color.fromARGB(157, 44, 49, 64),
+              fontWeight: FontWeight.w400,
             ),
             enabledBorder: InputBorder.none,
             focusedBorder: InputBorder.none,

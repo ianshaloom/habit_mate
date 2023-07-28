@@ -28,7 +28,7 @@ class _AddBottomSheetContentState extends State<AddBottomSheetContent> {
       return;
     }
 
-    widget.addHabit(habit: habit, complited: false);
+    widget.addHabit(dateAdded: DateTime.now(),habit: habit, complited: false);
 
     Navigator.of(context).pop();
   }

@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -5,7 +6,10 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'pages/homepage/homepage.dart';
 
 void main() async {
+  
   WidgetsFlutterBinding.ensureInitialized();
+
+  // Screen orientation
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitDown,
     DeviceOrientation.portraitUp,
@@ -16,11 +20,13 @@ void main() async {
 
   // open a database
   await Hive.openBox('Habit_Database');
+  await Hive.openBox('Habit_Percent');
 
   runApp(
     MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'HabitMate',
+      
+      title: 'Habit Mate',
       home: const MainPage(),
       theme: ThemeData(
         primaryColor: const Color.fromRGBO(44, 49, 64, 1),
@@ -45,10 +51,12 @@ void main() async {
         ),
 
         // Card Theme
-        cardTheme: const CardTheme(
-          elevation: 2,
-          color: Color.fromARGB(235, 255, 255, 255),
-        ),
+        cardTheme: CardTheme(
+            elevation: 0,
+            color: const Color(0xffF2F2FA),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15),
+                side: const BorderSide(color: Color(0xff6C63FF)))),
 
         // Text Theme
         textTheme: const TextTheme(
