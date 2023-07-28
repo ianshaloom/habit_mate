@@ -1,19 +1,35 @@
-import 'package:habit_tracker/datetime/date_time.dart';
+import 'package:habit_tracker/models/date_time.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 // reference our database
 final _mybox = Hive.box('Habit_Database');
 
 class HabitDb {
+  static final HabitDb _instance = HabitDb._internal();
+
+  factory HabitDb() {
+    return _instance;
+  }
+
+  HabitDb._internal();
+
+  //final Box<dynamic> _mybox = Hive.box('Habit_Database');
   List habits = [];
   Map<DateTime, int> heatMapDataset = {};
+  
+  
+  //List habits = [];
+  //Map<DateTime, int> heatMapDataset = {};
 
   // create initial default database
   void createDefaultDb() {
     // create a list of habits
     habits = [
-      ['Read at least two pages', false],
-      ['Take a walk', false],
+      ['Keep hydrated', false,],
+      ['Be grateful for everything', false],
+      ['Learn something new', false],
+      ['Keep hydrated', false,],
+      ['Be grateful for everything', false],
       ['Learn something new', false]
     ];
 

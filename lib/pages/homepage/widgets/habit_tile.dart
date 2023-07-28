@@ -22,7 +22,7 @@ class HabitTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.only(right: 5),
       child: Slidable(
         endActionPane: ActionPane(
           motion: const StretchMotion(),
@@ -42,7 +42,7 @@ class HabitTile extends StatelessWidget {
           ],
         ),
         child: Container(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(10.0),
           decoration: BoxDecoration(
               color: Colors.white, borderRadius: BorderRadius.circular(8)),
           child: Row(
@@ -58,7 +58,7 @@ class HabitTile extends StatelessWidget {
                   decoration: habitCompleted
                       ? TextDecoration.lineThrough
                       : TextDecoration.none,
-                  fontSize: 17,
+                  fontSize: 19,
                   fontWeight:
                       habitCompleted ? FontWeight.w600 : FontWeight.w500,
                 ),
